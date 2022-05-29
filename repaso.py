@@ -1,3 +1,6 @@
+from html.entities import name2codepoint
+from pprint import pprint
+import random
 import json
 
 # 0 = Español
@@ -5,20 +8,27 @@ import json
 
 idioma = 1
 
+
 with open("diccionario.json") as jsonfile:
     lista = json.load(jsonfile)
     dic = lista[idioma]
+pasw = list(dic.keys())
 
+
+print("*Bienvenido al repaso*")
 while True:
-    palabra = input("¿Qué palabra desea agregar? ")
-    definicion = input("¿Que significado tiene la palabra? ")
 
-    if palabra == "s":
-        break
+    c = input()
+    if c == "":
+        n = random.randint(0,len(pasw)-1)
+        print(pasw[n]+"\n"+dic[pasw[n]][0])
+        dic[pasw[n]][1] +=1
     else:
-        dic[palabra] = [definicion,0]
-
-
+        break
+    
+    
+    
+    
 lista[idioma] = dic
         
 with open("diccionario.json","w") as jsonfile:
@@ -28,4 +38,3 @@ with open("diccionario.json","w") as jsonfile:
 with open("diccionario.json") as jsonfile:
     lista = json.load(jsonfile)
     dic = lista[idioma]
-    print("\nEl número de palabras se ha actualizado a: " + str(len(dic)))
